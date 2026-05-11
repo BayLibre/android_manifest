@@ -21,7 +21,10 @@
   <project path="prebuilts/build-tools" name="platform/prebuilts/build-tools" clone-depth="1" groups="ddk"/>
   <project path="prebuilts/clang-tools" name="platform/prebuilts/clang-tools" clone-depth="1" groups="ddk"/>
   <project path="prebuilts/kernel-build-tools" name="kernel/prebuilts/build-tools" clone-depth="1" groups="ddk"/>
-  <project path="prebuilts/rust-toolchain/linux-x86" name="platform/prebuilts/rust-toolchain/linux-x86" clone-depth="1" groups="ddk"/>
+  <!-- Rust 1.91.1 is required by the Kleaf module; upstream main has moved
+       to 1.94.1+ which the kernel build doesn't accept yet. Pin the prebuilt
+       SHA that ships 1.91.1. -->
+  <project path="prebuilts/rust-toolchain/linux-x86" name="platform/prebuilts/rust-toolchain/linux-x86" revision="1bddbb572a62bebbd66b85961da06ee970e6cfd1" groups="ddk"/>
   <project path="prebuilts/ndk-r27" name="toolchain/prebuilts/ndk/r27" clone-depth="1" groups="ddk"/>
   <!-- Dependencies for testing (kunit, kselftests, ltp & dittosuite) -->
   <project path="kernel/tests" name="kernel/tests"/>
