@@ -5,7 +5,7 @@
     fetch="https://android.googlesource.com/"
     review="https://android-review.googlesource.com/" />
   <remote name="gitlab" fetch="https://gitlab.baylibre.com/baylibre/amlogic/atv/aosp" />
-  <remote name="baydroid" fetch="https://github.com/BayLibre/" />
+  <remote name="baydroid" fetch="git@github.com:BayLibre/" />
   <default revision="android16-qpr2-release"
            remote="aosp"
            sync-j="4" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <remote  name="aosp" fetch="https://android.googlesource.com/" review="https://android-review.googlesource.com/"/>
-  <remote  name="baydroid" fetch="https://github.com/BayLibre/"/>
+  <remote  name="baydroid" fetch="git@github.com:BayLibre/"/>
   <default revision="main-kernel" remote="aosp" sync-j="4"/>
   <superproject name="kernel/superproject" remote="aosp" revision="common-android-mainline-riscv64"/>
   <project path="build/kernel" name="kernel/build" groups="ddk">
