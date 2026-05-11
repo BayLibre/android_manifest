@@ -17,20 +17,19 @@ overrides at the bottom of the file. See *Overrides* below.
 
 ```
 spacemit/
-  aosp/      AOSP tree              (default.xml, required)
-  kernel/    Android Common Kernel  (kernel.xml, optional — only to rebuild the kernel)
-  mesa/      Mesa source            (BayLibre/mesa, optional — only to rebuild Mesa)
-  gpu/       Mesa build helper      (build-mesa-powervr.sh, optional)
+  aosp/      AOSP source       (synced from default.xml, required)
+  kernel/    kernel source     (synced from kernel.xml, optional — only to rebuild the kernel)
+  mesa/      Mesa source       (BayLibre/mesa @ android-pvr-support, optional — only to rebuild Mesa)
 ```
 
-The AOSP tree already carries:
+The AOSP tree already ships:
 
 - Mesa userspace prebuilts under `device/spacemit/k1/mesa/lib64/`
 - kernel prebuilts under `device/spacemit/k1-kernel/mainline/`
 
 so a plain `m` from `aosp/` produces flashable images on its own.
-Cloning `kernel/`, `mesa/` and `gpu/` is only required when you have
-local changes to rebuild.
+Cloning `kernel/` and `mesa/` is only required when you have local
+changes you want to test.
 
 ## Prerequisites
 
@@ -64,10 +63,9 @@ Optional — only if you plan to rebuild Mesa locally:
 git clone -b android-pvr-support git@github.com:BayLibre/mesa.git mesa
 ```
 
-The `gpu/` helper directory (Mesa cross-build script) is currently
-shipped out-of-band; copy `build-mesa-powervr.sh` and the
-`android-riscv64` meson cross file into a `gpu/` directory at the
-top level next to `aosp/` and `mesa/`.
+The cross-build helper (`build-mesa-powervr.sh`) and the meson
+cross file (`android-riscv64`) live at the top of the Mesa fork on
+the `android-pvr-support` branch — nothing to install separately.
 
 ## Build
 
@@ -87,7 +85,7 @@ in `aosp/device/spacemit/k1/mesa/lib64/`. Includes a
 finds the prebuilt at runtime.
 
 ```sh
-cd gpu && ./build-mesa-powervr.sh
+cd mesa && ./build-mesa-powervr.sh
 ```
 
 The first run builds the native helpers `mesa_clc` and `pco_clc`
