@@ -1059,5 +1059,6 @@
   <project path="device/spacemit/common"    name="android_device_spacemit_common"    groups="device,pdk" remote="baydroid" revision="android-16" />
   <project path="device/spacemit/k1"        name="android_device_spacemit_k1"        groups="device,pdk" remote="baydroid" revision="android-16" />
   <project path="device/spacemit/k1-kernel" name="android_device_spacemit_k1_kernel" groups="device,pdk" remote="baydroid" revision="android-16" />
+  <project path="vendor/spacemit"           name="android_vendor_spacemit"           groups="device,pdk" remote="baydroid" revision="android-16" />
   
 </manifest>
