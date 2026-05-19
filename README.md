@@ -133,8 +133,15 @@ into a single command that builds the chain and stages the outputs
 directly into the AOSP `vendor/spacemit/k1/bootloader/` tree:
 
 ```sh
-cd bootloader/build-bootloaders && ./release_android.sh --aosp=../../aosp
+cd bootloader/build-bootloaders && ./release_android.sh --aosp=../../aosp --config=config/boards/spacemit-k1.yaml
 ```
+
+`--config` is **required** in practice: the repo also carries TI K3
+board configs (`am62*`, `am67*`, …) inherited from its TI Android
+origin, and without `--config` the script tries to build every
+`config/boards/*.yaml` in turn — failing on the first TI config
+because the TI source projects (`arm-trusted-firmware`, `optee-os`,
+…) are not synced by `bootloader.xml`.
 
 First run downloads the Bootlin riscv64 toolchain into
 `bootloader/toolchains/` automatically (no manual install).
@@ -154,7 +161,7 @@ Options on `release_android.sh`:
 For a debug build that just refreshes binaries without committing:
 
 ```sh
-./release_android.sh --aosp=../../aosp --mode=debug
+./release_android.sh --aosp=../../aosp --config=config/boards/spacemit-k1.yaml --mode=debug
 ```
 
 Re-run `m` from `aosp/` afterwards to repackage the images.
