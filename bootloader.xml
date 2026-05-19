@@ -4,14 +4,11 @@
   <default remote="baydroid" sync-j="4"/>
 
   <!-- Banana Pi F3 / SpacemiT K1 bootloader chain.
-       Run-of-the-mill workflow:
-         repo init -u git@github.com:BayLibre/android_manifest.git \
-                   -b android-16-spacemit -m bootloader.xml
-         repo sync -j$(nproc)
-         cd build-bootloaders && ./release_android.sh --aosp=../../aosp
-       release_android.sh pulls the Bootlin riscv64 toolchain on first
-       run (utils.sh: download_riscv64_toolchain) and stages the
-       outputs into aosp/vendor/spacemit/k1/bootloader/.
+       See the manifest repo README for the workflow; the entry point
+       is build-bootloaders/release_android.sh.
+       The Bootlin riscv64 toolchain is downloaded on first build
+       (utils.sh: download_riscv64_toolchain), outputs are staged
+       into aosp/vendor/spacemit/k1/bootloader/.
   -->
   <project path="build-bootloaders" name="android_bootloader_build" revision="ti-android-16"/>
   <project path="pi-u-boot"         name="pi-u-boot"                revision="v2022.10-k1"/>
