@@ -7,29 +7,34 @@ SpacemiT K1 (RISC-V) on the Banana Pi F3 board.
 
 | File | Tree | Base |
 |---|---|---|
-| `default.xml` | AOSP | `android16-qpr2-release` (Google) |
-| `kernel.xml`  | Android Common Kernel | `main-kernel` (Google), kernel/common branch `android-mainline-riscv64` |
+| `default.xml`    | AOSP                  | `android16-qpr2-release` (Google) |
+| `kernel.xml`     | Android Common Kernel | `main-kernel` (Google), kernel/common branch `android-mainline-riscv64` |
+| `bootloader.xml` | Bootloader chain      | BayLibre forks of pi-u-boot / pi-opensbi + build-bootloaders |
 
-Both inherit the upstream Google manifests and apply BayLibre
-overrides at the bottom of the file. See *Overrides* below.
+`default.xml` and `kernel.xml` inherit the upstream Google manifests
+and apply BayLibre overrides at the bottom of each file.
+`bootloader.xml` is a small standalone manifest with only BayLibre
+forks. See *Overrides* below.
 
 ## Expected layout
 
 ```
 spacemit/
-  aosp/      AOSP source       (synced from default.xml, required)
-  kernel/    kernel source     (synced from kernel.xml, optional — only to rebuild the kernel)
-  mesa/      Mesa source       (BayLibre/mesa @ android-pvr-support, optional — only to rebuild Mesa)
+  aosp/        AOSP source         (synced from default.xml, required)
+  kernel/      kernel source       (synced from kernel.xml, optional — only to rebuild the kernel)
+  mesa/        Mesa source         (BayLibre/mesa @ android-pvr-support, optional — only to rebuild Mesa)
+  bootloader/  bootloader source   (synced from bootloader.xml, optional — only to rebuild the bootloader)
 ```
 
 The AOSP tree already ships:
 
 - Mesa userspace prebuilts under `device/spacemit/k1/mesa/lib64/`
 - kernel prebuilts under `device/spacemit/k1-kernel/mainline/`
+- bootloader prebuilts under `vendor/spacemit/k1/bootloader/`
 
 so a plain `m` from `aosp/` produces flashable images on its own.
-Cloning `kernel/` and `mesa/` is only required when you have local
-changes you want to test.
+Cloning `kernel/`, `mesa/` and `bootloader/` is only required when
+you have local changes you want to test.
 
 ## Prerequisites
 
@@ -67,6 +72,17 @@ The cross-build helper (`build-mesa-powervr.sh`) and the meson
 cross file (`android-riscv64`) live at the top of the Mesa fork on
 the `android-pvr-support` branch — nothing to install separately.
 
+Optional — only if you plan to rebuild the bootloader (FSBL,
+OpenSBI, U-Boot) locally:
+
+```sh
+mkdir bootloader && (cd bootloader && repo init -u git@github.com:BayLibre/android_manifest.git -b android-16-spacemit -m bootloader.xml && repo sync -j$(nproc))
+```
+
+The riscv64 cross-toolchain is pulled from Bootlin on first build
+by `build-bootloaders/utils.sh` (`download_riscv64_toolchain`) —
+no manual toolchain install needed.
+
 ## Build
 
 ### AOSP (required)
@@ -101,6 +117,28 @@ device tree blob, and overwrites the kernel prebuilts in
 
 ```sh
 cd kernel && tools/bazel run --config=fast //devices/spacemit/bananapi_f3:spacemit_k1x_dist -- --destdir=../aosp/device/spacemit/k1-kernel/mainline/
+```
+
+Re-run `m` from `aosp/` afterwards to repackage the images.
+
+### Rebuild the bootloader (optional)
+
+Builds the bootloader chain (FSBL → OpenSBI → U-Boot) for the
+Banana Pi F3 and bundles the artefacts (`FSBL.bin`, `fw_dynamic.itb`,
+`u-boot.itb`, `env.bin`, `partition_android.json`) for `flash_bpi_f3.sh`.
+First run pulls the Bootlin riscv64 toolchain into
+`bootloader/toolchains/` automatically.
+
+```sh
+cd bootloader/build-bootloaders && ./build_all.sh spacemit-k1
+```
+
+To replace the AOSP-side bootloader prebuilts with the freshly
+built ones, copy the outputs over `vendor/spacemit/k1/bootloader/`
+in the AOSP tree:
+
+```sh
+./prepare_android_img.sh ../../aosp/vendor/spacemit/k1/bootloader/
 ```
 
 Re-run `m` from `aosp/` afterwards to repackage the images.
@@ -162,4 +200,10 @@ Compared to the upstream Google manifests, this BSP overrides:
 | `default.xml` | `device/spacemit/common` | `BayLibre/android_device_spacemit_common` @ `android-16` | board-agnostic SpacemiT bits (added) |
 | `default.xml` | `device/spacemit/k1` | `BayLibre/android_device_spacemit_k1` @ `android-16` | K1 SoC + Banana Pi F3 board overlay, Mesa userspace prebuilts, audio/Bluetooth/Wi-Fi HAL configs, SELinux vendor policy (added) |
 | `default.xml` | `device/spacemit/k1-kernel` | `BayLibre/android_device_spacemit_k1_kernel` @ `android-16` | Kleaf-built kernel prebuilts (`Image`, `.ko` modules, `.dtb`) consumed by the AOSP build (added) |
+| `default.xml` | `vendor/spacemit` | `BayLibre/android_vendor_spacemit` @ `android-16` | `k1/k1.mk`, firmware blobs, bootloader prebuilts (added) |
+| `kernel.xml` | `common` | `BayLibre/android_kernel_common` @ `android-mainline-spacemit` | kernel/common + ~35 SpacemiT K1 ANDROID: commits (drivers, dts, configs) |
 | `kernel.xml` | `devices/spacemit` | `BayLibre/android_kernel_device_spacemit` @ `android-mainline-riscv64` | Banana Pi F3 Kleaf `kernel_build` target (replaces the Pixel `raviole` device tree) |
+| `kernel.xml` | (all other Google upstream) | pinned SHAs | Frozen against upstream drift (rust-toolchain, clang, gcc, build-tools, libcap, etc.) |
+| `bootloader.xml` | `build-bootloaders` | `BayLibre/android_bootloader_build` @ `ti-android-16` | Build orchestration scripts (forked from BayLibre GitLab TI Android, extended with SpacemiT K1 support) |
+| `bootloader.xml` | `pi-u-boot` | `BayLibre/pi-u-boot` @ `v2022.10-k1` | U-Boot port (forked from BPI-SINOVOIP + Android boot / AVB / fastboot enablement) |
+| `bootloader.xml` | `pi-opensbi` | `BayLibre/pi-opensbi` @ `v1.3-k1` | OpenSBI port (forked from BPI-SINOVOIP, defensive fork — no local patches) |
