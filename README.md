@@ -126,22 +126,52 @@ Re-run `m` from `aosp/` afterwards to repackage the images.
 Builds the bootloader chain (FSBL → OpenSBI → U-Boot) for the
 Banana Pi F3 and bundles the artefacts (`FSBL.bin`, `fw_dynamic.itb`,
 `u-boot.itb`, `env.bin`, `partition_android.json`) for `flash_bpi_f3.sh`.
-First run pulls the Bootlin riscv64 toolchain into
-`bootloader/toolchains/` automatically.
+
+The recommended entry point is `release_android.sh`, which wraps
+`build_all.sh` + `prepare_android_img.sh` + `commit-binaries.sh`
+into a single command that builds the chain and stages the outputs
+directly into the AOSP `vendor/spacemit/k1/bootloader/` tree:
 
 ```sh
-cd bootloader/build-bootloaders && ./build_all.sh spacemit-k1
+cd bootloader/build-bootloaders && ./release_android.sh --aosp=../../aosp
 ```
 
-To replace the AOSP-side bootloader prebuilts with the freshly
-built ones, copy the outputs over `vendor/spacemit/k1/bootloader/`
-in the AOSP tree:
+First run downloads the Bootlin riscv64 toolchain into
+`bootloader/toolchains/` automatically (no manual install).
+
+Options on `release_android.sh`:
+
+```
+--aosp=PATH    AOSP root path (required)
+--commit       commit the new binaries into the AOSP-side vendor repo
+               (calls commit-binaries.sh under the hood)
+--config=FILE  release a single board config file (default: all configs)
+--mode=MODE    [release|debug|factory] build only one mode
+--no-build     skip rebuild, just re-stage existing artefacts
+--silent       silence build command output
+```
+
+For a debug build that just refreshes binaries without committing:
 
 ```sh
-./prepare_android_img.sh ../../aosp/vendor/spacemit/k1/bootloader/
+./release_android.sh --aosp=../../aosp --mode=debug
 ```
 
 Re-run `m` from `aosp/` afterwards to repackage the images.
+
+#### Low-level scripts
+
+If you need to drive individual steps yourself (e.g. iterating on
+U-Boot only without re-running the full release pipeline):
+
+| Script | Purpose |
+|---|---|
+| `setup_android.sh --aosp=PATH --branch=BR` | initial setup: prepares AOSP-side branches for the binary commits |
+| `build_all.sh spacemit-k1` | build every component (FSBL/OpenSBI/U-Boot) for the K1 board |
+| `build_opensbi.sh` / `build_uboot.sh` | build a single component |
+| `prepare_android_img.sh --config=config/boards/spacemit-k1.yaml --mode=debug` | assemble the artefacts under `out/` into the layout `flash_bpi_f3.sh` expects |
+| `commit-binaries.sh --from-repo=PATH --to-repo=PATH --to-project=device/spacemit/k1` | commit refreshed binaries into the AOSP-side repo with a sensible message |
+| `secure.sh` | (placeholder) signing hook for production builds |
 
 ## Flash the board
 
