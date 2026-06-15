@@ -237,6 +237,6 @@ Compared to the upstream Google manifests, this BSP overrides:
 | `kernel.xml` | `common` | `BayLibre/android_kernel_common` @ `android-mainline-spacemit` | kernel/common + ~35 SpacemiT K1 ANDROID: commits (drivers, dts, configs) |
 | `kernel.xml` | `devices/spacemit` | `BayLibre/android_kernel_device_spacemit` @ `android-mainline-riscv64` | Banana Pi F3 Kleaf `kernel_build` target (replaces the Pixel `raviole` device tree) |
 | `kernel.xml` | (all other Google upstream) | pinned SHAs | Frozen against upstream drift (rust-toolchain, clang, gcc, build-tools, libcap, etc.) |
-| `bootloader.xml` | `build-bootloaders` | `BayLibre/android_bootloader_build` @ `ti-android-16` | Build orchestration scripts (forked from BayLibre GitLab TI Android, extended with SpacemiT K1 support) |
+| `bootloader.xml` | `build-bootloaders` | `BayLibre/android_bootloader_build` @ `spacemit-android-16` | Build orchestration scripts (forked from BayLibre GitLab TI Android, extended with SpacemiT K1 support) |
 | `bootloader.xml` | `pi-u-boot` | `BayLibre/pi-u-boot` @ `v2022.10-k1` | U-Boot port (forked from BPI-SINOVOIP + Android boot / AVB / fastboot enablement) |
 | `bootloader.xml` | `pi-opensbi` | `BayLibre/pi-opensbi` @ `v1.3-k1` | OpenSBI port (forked from BPI-SINOVOIP, defensive fork — no local patches) |

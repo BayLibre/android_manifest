@@ -10,7 +10,7 @@
        (utils.sh: download_riscv64_toolchain), outputs are staged
        into aosp/vendor/spacemit/k1/bootloader/.
   -->
-  <project path="build-bootloaders" name="android_bootloader_build" revision="ti-android-16"/>
+  <project path="build-bootloaders" name="android_bootloader_build" revision="spacemit-android-16"/>
   <project path="pi-u-boot"         name="pi-u-boot"                revision="v2022.10-k1"/>
   <project path="pi-opensbi"        name="pi-opensbi"               revision="v1.3-k1"/>
 </manifest>
