@@ -1055,6 +1055,13 @@
   <remove-project name="platform/external/minigbm" />
   <project path="external/minigbm" name="android_external_minigbm" groups="pdk" remote="baydroid" revision="android-16" />
 
+  <!-- BayLibre fork: build/soong with the Spacemit X60 riscv64 arch variant -->
+  <remove-project name="platform/build/soong" />
+  <project path="build/soong" name="android_build_soong" groups="pdk,tradefed,sysui-studio" remote="baydroid" revision="android-16" >
+    <linkfile src="root.bp" dest="Android.bp" />
+    <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+  </project>
+
   <!-- SpacemiT K1 / Banana Pi F3 device -->
   <project path="device/spacemit/common"    name="android_device_spacemit_common"    groups="device,pdk" remote="baydroid" revision="android-16" />
   <project path="device/spacemit/k1"        name="android_device_spacemit_k1"        groups="device,pdk" remote="baydroid" revision="android-16" />
