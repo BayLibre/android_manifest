@@ -1,7 +1,9 @@
-# SpacemiT K1 / Banana Pi F3 Android BSP
+# SpacemiT K1 Android BSP (Banana Pi F3 + MusePi Pro)
 
 Multi-repo manifests for the BayLibre Android 16 BSP targeting the
-SpacemiT K1 (RISC-V) on the Banana Pi F3 board.
+SpacemiT K1 (RISC-V), on the **Banana Pi F3** and **MusePi Pro** boards
+(one `k1` device, both DTBs in a multi-DTB image picked at boot via
+`adtb_idx`; see `aosp/device/spacemit/k1/README.md` for the per-board details).
 
 ## Manifests in this repo
 
@@ -231,6 +233,7 @@ Compared to the upstream Google manifests, this BSP overrides:
 | `default.xml` | `device/spacemit/k1` | `BayLibre/android_device_spacemit_k1` @ `android-16` | K1 SoC + Banana Pi F3 board overlay, Mesa userspace prebuilts, audio/Bluetooth/Wi-Fi HAL configs, SELinux vendor policy (added) |
 | `default.xml` | `device/spacemit/k1-kernel` | `BayLibre/android_device_spacemit_k1_kernel` @ `android-16` | Kleaf-built kernel prebuilts (`Image`, `.ko` modules, `.dtb`) consumed by the AOSP build (added) |
 | `default.xml` | `vendor/spacemit` | `BayLibre/android_vendor_spacemit` @ `android-16` | `k1/k1.mk`, firmware blobs, bootloader prebuilts (added) |
+| `default.xml` | `build/soong` | `BayLibre/android_build_soong` @ `android-16` | adds the Spacemit X60 riscv64 arch variant (`x60` `-march`/`-mcpu`/`-mtune`, cc + rust) (added) |
 | `kernel.xml` | `common` | `BayLibre/android_kernel_common` @ `android-mainline-spacemit` | kernel/common + ~35 SpacemiT K1 ANDROID: commits (drivers, dts, configs) |
 | `kernel.xml` | `devices/spacemit` | `BayLibre/android_kernel_device_spacemit` @ `android-mainline-riscv64` | Banana Pi F3 Kleaf `kernel_build` target (replaces the Pixel `raviole` device tree) |
 | `kernel.xml` | (all other Google upstream) | pinned SHAs | Frozen against upstream drift (rust-toolchain, clang, gcc, build-tools, libcap, etc.) |
