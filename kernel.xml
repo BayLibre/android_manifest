@@ -7,7 +7,12 @@
   <remote name="baydroid" fetch="git@github.com:BayLibre/"/>
   <default revision="main-kernel" remote="aosp" sync-j="4"/>
   <superproject name="kernel/superproject" remote="aosp" revision="common-android-mainline-riscv64"/>
-  <project path="build/kernel" name="kernel/build" groups="ddk">
+  <!-- Pinned, not floating. common is forked from android-mainline at the
+       v7.1 merge (2026-06-15); kleaf at main-kernel tip has since made
+       pahole a required kernel_build() argument, which the upstream
+       targets in common/BUILD.bazel do not pass. This is the revision
+       the BSP is built against. -->
+  <project path="build/kernel" name="kernel/build" groups="ddk" revision="3fef046c400fb14eb5d8f93a02e844792608a295">
     <linkfile src="kleaf/bazel.sh" dest="tools/bazel"/>
     <linkfile src="kleaf/bzlmod/bazel.MODULE.bazel" dest="MODULE.bazel"/>
   </project>
