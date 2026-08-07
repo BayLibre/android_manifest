@@ -49,6 +49,13 @@
   <project path="external/python/absl-py" name="platform/external/python/absl-py" groups="ddk-external"/>
 
   <!-- local_repository()'s dependencies -->
+  <!-- Present on common-android-mainline but missing from
+       common-android-mainline-riscv64, which lags behind it. The kleaf
+       MODULE.bazel declares all three as local_repository, so the build
+       fails outright without them. -->
+  <project path="external/abseil-cpp" name="platform/external/abseil-cpp" groups="ddk"/>
+  <project path="external/protobuf" name="platform/external/protobuf" groups="ddk"/>
+  <project path="external/stg" name="platform/external/stg" groups="ddk"/>
   <project path="external/argp-standalone" name="platform/external/argp-standalone" groups="ddk"/>
   <project path="external/avb" name="platform/external/avb" groups="ddk"/>
   <project path="external/dtc" name="platform/external/dtc" groups="ddk"/>
