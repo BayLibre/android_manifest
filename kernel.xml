@@ -96,6 +96,14 @@
        upstream in Linux 7.0/7.1 and is absent from 6.18, which also lacks
        k1-musepi-pro.dts. See docs/ for the ACK evaluation.
        ================================================================== -->
+  <!-- The riscv64 branch maps external/zlib to platform/external/zlib,
+       which carries no bazel marker file. kleaf declares zlib as a
+       bzlmod bazel_dep with a local_path_override, so it needs a real
+       MODULE.bazel. common-android-mainline maps the same path to
+       zlib-madler, which has one. -->
+  <remove-project name="platform/external/zlib" />
+  <project path="external/zlib" name="platform/external/zlib-madler" groups="ddk"/>
+
   <remove-project name="kernel/common" />
   <project path="common" name="android_kernel_common" remote="baydroid" revision="android-mainline-spacemit"/>
 
