@@ -1176,7 +1176,7 @@
   <!-- SpacemiT boards: K1 (Banana Pi F3, MusePi Pro) and K3 (Pico-ITX) -->
   <project path="device/spacemit/common"    name="android_device_spacemit_common"    groups="device,pdk" remote="baydroid" revision="android-16" />
   <project path="device/spacemit/k1"        name="android_device_spacemit_k1"        groups="device,pdk" remote="baydroid" revision="android-16" />
-  <project path="device/spacemit/k1-kernel" name="android_device_spacemit_k1_kernel" groups="device,pdk" remote="baydroid" revision="android-16" />
+  <project path="device/spacemit/kernel"      name="android_device_spacemit_kernel"    groups="device,pdk" remote="baydroid" revision="android-16" />
   <project path="vendor/spacemit"           name="android_vendor_spacemit"           groups="device,pdk" remote="baydroid" revision="android-16" />
 
   <!-- TODO(k3): device/spacemit/k3 and device/spacemit/k3-kernel are not repos

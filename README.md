@@ -53,7 +53,7 @@ spacemit/
 The AOSP tree already ships:
 
 - Mesa userspace prebuilts under `device/spacemit/k1/mesa/lib64/`
-- kernel prebuilts under `device/spacemit/k1-kernel/mainline/` — one set,
+- kernel prebuilts under `device/spacemit/kernel/mainline/` — one set,
   consumed by both products
 - bootloader prebuilts under `vendor/spacemit/{k1,musepi-pro,k3}/bootloader/`
 
@@ -126,7 +126,7 @@ One build produces the `Image`, the union of the K1 and K3 modules and the
 three device tree blobs, and overwrites the shared prebuilts:
 
 ```sh
-cd kernel && tools/bazel run --config=fast //devices/spacemit/spacemit_soc:spacemit_k1x_dist -- --destdir=../aosp/device/spacemit/k1-kernel/mainline/
+cd kernel && tools/bazel run --config=fast //devices/spacemit/spacemit_soc:spacemit_k1x_dist -- --destdir=../aosp/device/spacemit/kernel/mainline/
 ```
 
 Re-run `m` from `aosp/` afterwards to repackage the images.
@@ -246,7 +246,7 @@ Compared to the upstream Google manifests, this BSP overrides:
 | `default.xml` | `hardware/realtek` | `BayLibre/android_hardware_realtek` @ `android-17` | Realtek WiFi HAL (`libwifi-hal-rtk`), pruned from the DC-DeepComputing import (added) |
 | `default.xml` | `device/spacemit/common` | `BayLibre/android_device_spacemit_common` @ `android-16` | board-agnostic SpacemiT bits (added) |
 | `default.xml` | `device/spacemit/k1` | `BayLibre/android_device_spacemit_k1` @ `android-16` | K1 SoC + board overlays, Mesa prebuilts, audio/Bluetooth/WiFi HAL configs, SELinux vendor policy (added) |
-| `default.xml` | `device/spacemit/k1-kernel` | `BayLibre/android_device_spacemit_k1_kernel` @ `android-16` | kernel prebuilts (`Image`, `.ko`, `.dtb`) — one set for both SoCs (added) |
+| `default.xml` | `device/spacemit/kernel` | `BayLibre/android_device_spacemit_kernel` @ `android-16` | kernel prebuilts (`Image`, `.ko`, `.dtb`) — one set for both SoCs (added) |
 | `default.xml` | `vendor/spacemit` | `BayLibre/android_vendor_spacemit` @ `android-16` | per-board makefiles, firmware blobs, bootloader prebuilts (added) |
 | `kernel-spacemit.xml` | `common` | `BayLibre/android_kernel_common` @ `android-mainline-spacemit` | kernel/common + the SpacemiT K1 and K3 commits (drivers, dts, configs) |
 | `kernel-spacemit.xml` | `devices/spacemit` | `BayLibre/android_kernel_device_spacemit` @ `android-mainline-spacemit` | Kleaf `kernel_build` target under `spacemit_soc/`, one image for K1 and K3 (replaces the Pixel `raviole` device tree) |
