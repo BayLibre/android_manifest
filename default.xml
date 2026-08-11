@@ -1147,6 +1147,14 @@
   <project path="hardware/baylibre/thermal" name="android_hardware_baylibre_thermal" groups="device,pdk" remote="baydroid" revision="thermal_rust" />
   <project path="hardware/baylibre/usb"     name="android_hardware_baylibre_usb"     groups="device,pdk" remote="baydroid" revision="main" />
 
+  <!-- Realtek WiFi HAL: supplies libwifi-hal-rtk, which BOARD_WLAN_DEVICE :=
+       realtek resolves to. The history carries the DC-DeepComputing-android
+       platform-hardware-realtek import, then our own commits: the pruning to
+       wlan/wifi_hal only, and the include fixes needed to build against the
+       current AOSP headers. Not a fork of an upstream AOSP project, so no
+       remove-project. -->
+  <project path="hardware/realtek" name="android_hardware_realtek" groups="device,pdk" remote="baydroid" revision="android-17" />
+
   <!-- minigbm: BayLibre fork (gbm_mesa + dma_heap + runtime backend selection) -->
   <remove-project name="platform/external/minigbm" />
   <project path="external/minigbm" name="android_external_minigbm" groups="pdk" remote="baydroid" revision="android-16" />
