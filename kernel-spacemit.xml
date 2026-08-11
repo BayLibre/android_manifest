@@ -102,9 +102,7 @@
   <project path="common" name="android_kernel_common" remote="baydroid" revision="android-mainline-spacemit"/>
 
   <remove-project name="kernel/devices/google/raviole" />
-  <project path="devices/spacemit" name="android_kernel_device_spacemit" remote="baydroid" revision="android-mainline-riscv64">
-    <!-- TODO: flip to spacemit_soc/device.bazelrc once the
-         bananapi_f3 -> spacemit_soc rename lands on the remote branch. -->
-    <linkfile src="bananapi_f3/device.bazelrc" dest="device.bazelrc"/>
+  <project path="devices/spacemit" name="android_kernel_device_spacemit" remote="baydroid" revision="android-mainline-spacemit">
+    <linkfile src="spacemit_soc/device.bazelrc" dest="device.bazelrc"/>
   </project>
 </manifest>
