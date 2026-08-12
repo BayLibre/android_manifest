@@ -1140,7 +1140,7 @@
        Upstream ships it branch-tracked; the BSP needs a known-good sha. -->
   <remove-project name="platform/external/drm_hwcomposer" />
   <project path="external/drm_hwcomposer" name="platform/external/drm_hwcomposer"
-           revision="59b4b3e95e28e796cd68d8c2ebd340567fcd6d53" groups="drm_hwcomposer,pdk-fs" />
+           revision="03dabbfe742138224d8b4f70a0eef19ade489d57" groups="drm_hwcomposer,pdk-fs" />
 
   <!-- BayLibre HALs shared across boards -->
   <project path="hardware/generic/audio"   name="android_hardware_baylibre_audio"   groups="device,pdk" remote="baydroid" revision="android-17-generic" />
