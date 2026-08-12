@@ -1143,8 +1143,8 @@
            revision="59b4b3e95e28e796cd68d8c2ebd340567fcd6d53" groups="drm_hwcomposer,pdk-fs" />
 
   <!-- BayLibre HALs shared across boards -->
-  <project path="hardware/generic/audio"   name="android_hardware_baylibre_audio"   groups="device,pdk" remote="baydroid" revision="main" />
-  <project path="hardware/generic/thermal" name="android_hardware_baylibre_thermal" groups="device,pdk" remote="baydroid" revision="thermal_rust" />
+  <project path="hardware/generic/audio"   name="android_hardware_baylibre_audio"   groups="device,pdk" remote="baydroid" revision="android-17-generic" />
+  <project path="hardware/generic/thermal" name="android_hardware_baylibre_thermal" groups="device,pdk" remote="baydroid" revision="android-17" />
   <project path="hardware/generic/usb"     name="android_hardware_baylibre_usb"     groups="device,pdk" remote="baydroid" revision="main" />
 
   <!-- Realtek WiFi HAL: supplies libwifi-hal-rtk, which BOARD_WLAN_DEVICE :=
