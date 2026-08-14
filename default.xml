@@ -1157,11 +1157,11 @@
 
   <!-- minigbm: BayLibre fork (gbm_mesa + dma_heap + runtime backend selection) -->
   <remove-project name="platform/external/minigbm" />
-  <project path="external/minigbm" name="android_external_minigbm" groups="pdk" remote="baydroid" revision="android-16" />
+  <project path="external/minigbm" name="android_external_minigbm" groups="pdk" remote="baydroid" revision="android-17" />
 
   <!-- build/soong: BayLibre fork (SpacemiT X60 riscv64 arch variant, GOGC/GOMEMLIMIT forwarding) -->
   <remove-project name="platform/build/soong" />
-  <project path="build/soong" name="android_build_soong" groups="pdk,tradefed,sysui-studio" remote="baydroid" revision="android-16" >
+  <project path="build/soong" name="android_build_soong" groups="pdk,tradefed,sysui-studio" remote="baydroid" revision="android-17" >
     <linkfile src="root.bp" dest="Android.bp" />
     <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
   </project>
@@ -1171,12 +1171,12 @@
        GOMEMLIMIT commit). Wired into the manifest as of Android 17 - on
        android-16 this fork was only ever applied by hand. -->
   <remove-project name="platform/build/blueprint" />
-  <project path="build/blueprint" name="android_build_blueprint" groups="pdk,tradefed" remote="baydroid" revision="android-16" />
+  <project path="build/blueprint" name="android_build_blueprint" groups="pdk,tradefed" remote="baydroid" revision="android-17" />
 
   <!-- SpacemiT boards: K1 (Banana Pi F3, MusePi Pro) and K3 (Pico-ITX) -->
-  <project path="device/spacemit/common"    name="android_device_spacemit_common"    groups="device,pdk" remote="baydroid" revision="android-16" />
-  <project path="device/spacemit/k1"        name="android_device_spacemit_k1"        groups="device,pdk" remote="baydroid" revision="android-16" />
+  <project path="device/spacemit/common"    name="android_device_spacemit_common"    groups="device,pdk" remote="baydroid" revision="android-17" />
+  <project path="device/spacemit/k1"        name="android_device_spacemit_k1"        groups="device,pdk" remote="baydroid" revision="android-17" />
   <project path="device/spacemit/k3"        name="android_device_spacemit_k3"        groups="device,pdk" remote="baydroid" revision="android-17" />
-  <project path="device/spacemit/kernel"      name="android_device_spacemit_kernel"    groups="device,pdk" remote="baydroid" revision="android-16" />
-  <project path="vendor/spacemit"           name="android_vendor_spacemit"           groups="device,pdk" remote="baydroid" revision="android-16" />
+  <project path="device/spacemit/kernel"      name="android_device_spacemit_kernel"    groups="device,pdk" remote="baydroid" revision="android-17" />
+  <project path="vendor/spacemit"           name="android_vendor_spacemit"           groups="device,pdk" remote="baydroid" revision="android-17" />
 </manifest>
