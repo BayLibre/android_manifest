@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="baydroid" fetch="git@github.com:BayLibre/"/>
+  <default remote="baydroid" sync-j="4"/>
+
+  <!-- Alibaba A210 bootloader chain. See the manifest repo README for the
+       workflow; the entry point for the board is
+       build-bootloaders/release_android.sh.
+
+       The Xuantie GNU toolchain is downloaded on first build by
+       build-bootloaders/utils.sh. Outputs are staged into the AOSP tree
+       under vendor/alibaba/a210/bootloader/.
+  -->
+  <project path="build-bootloaders" name="android_bootloader_build" revision="vsatoes/alibaba-android-17"/>
+
+  <!-- A210 vendor chain -->
+  <project path="u-boot"  name="pi-u-boot"  revision="vsatoes/android-boot"/>
+  <project path="opensbi" name="pi-opensbi" revision="vsatoes/v1.5-a210"/>
+
+</manifest>
