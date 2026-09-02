@@ -16,15 +16,16 @@
        build-bootloaders/utils.sh. Outputs are staged into the AOSP tree
        under vendor/spacemit/BOARD/bootloader/.
   -->
-  <project path="build-bootloaders" name="android_bootloader_build" revision="spacemit-android-16"/>
+  <project path="build-bootloaders" name="android_bootloader_build" revision="spacemit-android-17"/>
 
   <!-- K1: Banana Pi F3 and MusePi Pro, vendor 2022.10 chain -->
   <project path="pi-u-boot"  name="pi-u-boot"  revision="v2022.10-k1"/>
   <project path="pi-opensbi" name="pi-opensbi" revision="v1.3-k1"/>
 
-  <!-- The K3 chain is built from upstream U-Boot 2026.07 and upstream
-       OpenSBI, each carrying local commits on a k3-port branch. Those
-       trees are not published yet, so they cannot be declared here; they
-       are provisioned by hand until BayLibre forks exist. See the docs. -->
+  <!-- K3: Pico-ITX, upstream U-Boot 2026.07 and upstream OpenSBI 1.8 chain.
+       Same repositories as the K1 above, checked out a second time at the
+       paths the K3 board yaml names in its src keys. -->
+  <project path="u-boot"  name="pi-u-boot"  revision="v2026.07-k3"/>
+  <project path="opensbi" name="pi-opensbi" revision="v1.8-k3"/>
 
 </manifest>
