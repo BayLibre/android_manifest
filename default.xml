@@ -1180,6 +1180,11 @@
   <project path="device/spacemit/kernel"      name="android_device_spacemit_kernel"    groups="device,pdk" remote="baydroid" revision="android-17" />
   <project path="vendor/spacemit"           name="android_vendor_spacemit"           groups="device,pdk" remote="baydroid" revision="android-17" />
 
+  <!-- Alibaba A210 board -->
+  <project path="device/alibaba/a210" name="android_device_alibaba_a210" groups="device,pdk" remote="baydroid" revision="android-17" />
+  <project path="device/alibaba/kernel" name="android_device_alibaba_a210_kernel" groups="device,pdk" remote="baydroid" revision="android-17" />
+  <project path="vendor/alibaba" name="android_vendor_alibaba" groups="device,pdk" remote="baydroid" revision="android-17" />
+
   <!-- repo does not fetch Git LFS payloads, so a fresh checkout keeps the
        WebView APK as its pointer text and signapk fails on it. The hook in
        device/spacemit/common pulls them once the sync is done. -->
